@@ -1,3 +1,3 @@
 import UsersTable from "./components/users/UsersTable";
 
-export default {UsersTable}
+export default { UsersTable };
