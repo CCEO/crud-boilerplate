@@ -1,26 +1,51 @@
 <template>
-    <v-server-table url="/users" :columns="columns" :options="options">
+    <div class="table">
+        <v-server-table
+            :url="route('users.index',{ filters: JSON.stringify(tableInterface.debouncedFilters), columns:JSON.stringify([])})"
+            :options="options" ref="table" :columns="columns">
 
-    </v-server-table>
+            <div :slot="`filter__${column}`" v-for="column in filterable" v-if="headings.length">
+                <input type="text" class="form-control" v-model="tableInterface.filters[column]"
+                       :style="'max-width:'+(column=='id'?'50px':'auto')">
+            </div>
+            <div slot="beforeTable" class="mb-1" v-if="headings.length">
+                <div class="dropdown d-inline">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Modificar Filtros
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <template v-for="column in headings.map(c => c.column).filter(c => c != 'actions')">
+                            <p class="dropdown-item">
+                                <input type="checkbox" v-model="tableInterface.visibleColumns[column]"
+                                       style="margin-right: 5px;">
+                                {{ headings.find(col => col.column == column).text }}
+                            </p>
+                        </template>
+                    </div>
+                </div>
+                <button class="btn btn-outline-dark" id="restore-filters">Restablecer filtros</button>
+            </div>
+        </v-server-table>
+        <br>
+    </div>
 </template>
 
 <script>
+    import UsersTableColumns from './UsersTableColumns'
+
     export default {
+        name: "UsersTable",
         data() {
             return {
-                columns: ['id', 'name', 'email', 'created_at'],
+                columns: [],
+                filterable: [],
+                headings: [],
                 options: {
-                    columnsDropdown: true,
-                    filterByColumn: true,
-                    perPageValues: [10, 25, 50, 100],
-                    responseAdapter: function (resp) {
-                        var data = this.getResponseData(resp);
-                        return {data: data.users, count: data.count}
-                    },
-                    saveState: true,
-                    storage: 'localStorage'
+                    columns: UsersTableColumns
                 }
             }
-        },
+        }
     }
 </script>
+
