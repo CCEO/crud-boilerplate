@@ -9,10 +9,21 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $page = request()->get('page', false);
+        $limit = request()->get('limit', false);
+        $filters = json_decode(request()->get('filters', "{}"), true);
 
-        $count = $users->count();
+        $users = User::where('id', '>', 0);
+        foreach ($filters as $filter => $value) {
+            if ($value)
+                $users->where($filter, $value);
+        }
+        $data = $users->get();
+        $count = $data->count();
+        if ($limit && $page)
+            $data = $data->slice(($page - 1) * $limit)->take($limit)->values();
 
-        return compact('users', 'count');
+
+        return compact('data', 'count');
     }
 }
