@@ -15,13 +15,15 @@ class UserController extends Controller
 
         $users = User::where('id', '>', 0);
         foreach ($filters as $filter => $value) {
-            if ($value)
+            if ($value) {
                 $users->where($filter, $value);
+            }
         }
         $data = $users->get();
         $count = $data->count();
-        if ($limit && $page)
+        if ($limit && $page) {
             $data = $data->slice(($page - 1) * $limit)->take($limit)->values();
+        }
 
 
         return compact('data', 'count');
