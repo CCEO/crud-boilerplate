@@ -25,17 +25,25 @@
                     </div>
                 </div>
                 <button class="btn btn-outline-dark" id="restore-filters">Restablecer filtros</button>
+                <button class="btn btn-outline-dark" @click="$modal.show('user-modal')">
+                    Nuevo usuario
+                </button>
             </div>
         </v-server-table>
+        <user-modal @created="reloadTable"></user-modal>
         <br>
     </div>
 </template>
 
 <script>
     import UsersTableColumns from './UsersTableColumns'
+    import UserModal from './UserModal'
 
     export default {
         name: "UsersTable",
+        components: {
+            UserModal
+        },
         data() {
             return {
                 columns: [],
@@ -44,6 +52,12 @@
                 options: {
                     columns: UsersTableColumns
                 }
+            }
+        },
+        methods: {
+            reloadTable() {
+                const debouncedFilters = Object.assign({reload: ""}, this.tableInterface.debouncedFilters);
+                this.$set(this.tableInterface, 'debouncedFilters', debouncedFilters);
             }
         }
     }

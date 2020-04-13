@@ -104,9 +104,7 @@ export default {
                         vm.emitColumns();
                     }
                 }, true);
-
             }
-
         },
         methods: {
             debounce: require('debounce'),

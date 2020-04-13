@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserStoreRequest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -25,5 +26,11 @@ class UserController extends Controller
 
 
         return compact('data', 'count');
+    }
+
+    public function store(UserStoreRequest $request)
+    {
+        $user = User::create($request->all());
+        return $user;
     }
 }
