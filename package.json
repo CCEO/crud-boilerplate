@@ -24,9 +24,11 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@myshell/alvue": "^0.2.2",
         "array-intersection": "^0.1.2",
         "clone": "^2.1.2",
         "debounce": "^1.2.0",
+        "vue-js-modal": "^1.3.33",
         "vue-pagination-2": "^2.0.3",
         "vue-pagination-3": "^2.0.0-beta01",
         "vue-tables-2": "^2.0.14"
