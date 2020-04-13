@@ -1,26 +1,31 @@
 export default {
     id: {
-        head: 'ID',
+        head: "ID",
         default: true,
         filterable: true,
-        filter: ''
+        filter: ""
     },
     name: {
-        head: 'Nombre',
+        head: "Nombre",
         default: true,
         filterable: true,
-        filter: ''
+        filter: ""
     },
     email: {
-        head: 'Correo',
+        head: "Correo",
         default: true,
         filterable: true,
-        filter: ''
+        filter: ""
     },
     created_at: {
-        head: 'Fecha',
+        head: "Fecha",
         default: true,
         filterable: true,
-        filter: ''
+        filter: ""
+    },
+    actions: {
+        head: "Acciones",
+        default: true,
+        filterable: false,
     },
 }

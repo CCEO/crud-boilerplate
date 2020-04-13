@@ -1,0 +1,48 @@
+.VueTables__limit.pull-right {
+    float: none !important;
+}
+
+.VueTables--server > .row {
+    display: inline-block !important;
+    margin-right: .25rem;
+}
+
+.VueTables--server > .row .col-md-12 {
+    padding-right: 0 !important;
+}
+
+.VueTables__limit-field > select {
+    border: 1px solid black !important;
+}
+
+.VueTables__limit-field > label {
+    display: inline;
+    margin-right: .25rem;
+}
+
+.VuePagination {
+    text-align: center;
+    color: black;
+}
+
+.VuePagination > nav {
+    display: inline-block;
+}
+
+.VuePagination > nav > ul {
+    margin-bottom: .25rem;
+}
+
+.page-link {
+    color: black !important;
+}
+
+.page-item.active .page-link {
+    color: white !important;
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
+.VuePagination .VuePagination__count {
+    padding: 0;
+}
