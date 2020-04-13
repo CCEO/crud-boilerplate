@@ -15,11 +15,8 @@ Vue.use(ServerTable, tablesConfig.options);
 Vue.mixin(tablesConfig.init);
 
 Vue.mixin({
-    methods: {
-        route: (name, params, absolute) => route(name, params, absolute, Ziggy),
-    }
+  methods : {
+    route : (name, params, absolute) => route(name, params, absolute, Ziggy),
+  }
 });
-const app = new Vue({
-    el: '#app',
-    components: components
-});
+const app = new Vue({el : '#app', components : components});
