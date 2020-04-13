@@ -1,14 +1,16 @@
 <template>
-    <modal name="user-modal" height="auto">
+    <modal name="user-modal" height="auto" @before-open="beforeOpen">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Crear usuario</h5>
+                <h5 class="modal-title" id="exampleModalLabel">
+                    {{form.method === "post" ? "Crear" : "Editar"}} usuario
+                </h5>
                 <button type="button" class="close" @click="$modal.hide('user-modal')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <alv-form :action="route('users.store')" id="user-create" method="post"
+                <alv-form :action="form.action" id="user-create" :method="form.method" :spinner="true"
                           :data-object="user" @after-done="afterDone" ref="form">
                     <div class="form-group">
                         <label>Nombre:</label>
@@ -25,8 +27,10 @@
                 </alv-form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" form="user-create">Guardar</button>
+                <button type="button" class="btn btn-outline-dark" @click="$modal.hide('user-modal')">
+                    Cerrar
+                </button>
+                <button type="submit" class="btn btn-outline-success" form="user-create">Guardar</button>
             </div>
         </div>
     </modal>
@@ -35,21 +39,37 @@
 <script>
     export default {
         name: "UserModal",
-        data(){
+        data() {
             return {
+                form: {
+                    action: null,
+                    method: null
+                },
                 user: {
-                    name: '',
-                    email: '',
-                    password: ''
+                    name: "",
+                    email: "",
+                    password: ""
                 }
             }
         },
-        methods:{
-            afterDone(){
+        methods: {
+            afterDone() {
                 Object.assign(this.user, this.$options.data().user);
-                this.$modal.hide('user-modal');
+                this.$modal.hide("user-modal");
                 this.$refs.form.unsetButtonLoading();
-                this.$emit('created')
+                this.$emit("created")
+            },
+            beforeOpen(event) {
+                if (typeof event.params != "undefined") {
+                    this.form.action = this.route("users.update", event.params);
+                    this.form.method = "put";
+                    axios.get(this.route("users.show", event.params)).then(response => {
+                        this.user = response.data;
+                    });
+                } else {
+                    this.form.action = this.route("users.store");
+                    this.form.method = "post";
+                }
             }
         }
     }

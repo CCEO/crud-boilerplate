@@ -7,11 +7,8 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.VueTables__limit {margin-bottom: .2rem !important;}
-.VueTables__limit-field{
-    width: 25%;
-}
-.VueTables__limit-field label {
-    display: inline;
-    margin-right: .2rem;
-}
+//Font Awesome
+@import "~font-awesome/scss/font-awesome";
+
+//Custom tables
+@import "tables";

@@ -1,15 +1,15 @@
-require('./bootstrap');
-window.Vue = require('vue');
+require("./bootstrap");
+window.Vue = require("vue");
 
-import {ServerTable} from 'vue-tables-2';
-import route from 'ziggy';
-import {Ziggy} from './routes'
+import {ServerTable} from "vue-tables-2";
+import route from "ziggy";
+import {Ziggy} from "./routes"
 import components from "./components";
-import tablesConfig from './tables_config';
-import VModal from 'vue-js-modal'
-import ALVue from '@myshell/alvue';
+import tablesConfig from "./tables_config";
+import VModal from "vue-js-modal"
+import ALVue from "@myshell/alvue";
 
-Vue.use(VModal);
+Vue.use(VModal, {dialog: true});
 Vue.use(ALVue);
 Vue.use(ServerTable, tablesConfig.options);
 Vue.mixin(tablesConfig.init);
@@ -20,6 +20,6 @@ Vue.mixin({
     }
 });
 const app = new Vue({
-    el: '#app',
+    el: "#app",
     components: components
 });
