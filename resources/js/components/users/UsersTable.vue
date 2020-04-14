@@ -1,9 +1,7 @@
 <template>
     <div class="table">
-        <v-server-table
-            :url="route('users.index',{ filters: JSON.stringify(tableInterface.debouncedFilters), columns:JSON.stringify([])})"
-            :options="options" ref="table" :columns="columns">
-
+        <v-server-table :options="options" ref="table" :columns="columns" class=" table-borderless"
+                        :url="route('users.index',{ filters: JSON.stringify(tableInterface.debouncedFilters), columns:JSON.stringify([])})">
             <div :slot="`filter__${column}`" v-for="column in filterable" v-if="headings.length">
                 <input type="text" class="form-control" v-model="tableInterface.filters[column]"
                        :style="'max-width:'+(column=='id'?'50px':'auto')">
