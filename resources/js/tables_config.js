@@ -18,13 +18,13 @@ export default {
             });
         },
         texts: {
-            count: "Mostrando {from} a {to} de {count} resgistros|{count} registros|Un registro",
+            count: "Mostrando {from} a {to} de {count} registros|{count} registros|Un registro",
             first: 'First',
             last: 'Last',
             filter: "Filter:",
             filterPlaceholder: "Search query",
             limit: "Mostrar:",
-            page: "Pagina:",
+            page: "Página:",
             noResults: "No hay registros",
             filterBy: "Filtrado por {column}",
             loading: 'Cargando...',
