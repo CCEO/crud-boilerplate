@@ -1,0 +1,30 @@
+name: CRUD
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Run composer install
+        run: composer install -n --prefer-dist
+      - name: Create .env file
+        run: cp .env.example .env
+      - name: Create project key
+        run: php artisan key:generate
+      - name: Run npm install
+        run: npm install
+      - name: Run npm run dev
+        run: npm run dev
+      - name: Run tests
+        run: ./vendor/bin/phpunit
+        env:
+          APP_ENV: testing
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: Logs
+          path: ./storage/logs
