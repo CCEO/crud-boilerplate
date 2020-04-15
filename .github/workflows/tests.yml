@@ -11,7 +11,7 @@ jobs:
       - name: Run composer install
         run: composer install -n --prefer-dist
       - name: Run npm
-        run: npm install && npm dev
+        run: npm install && npm run dev
       - name: Run tests
         run: ./vendor/bin/phpunit
         env:
