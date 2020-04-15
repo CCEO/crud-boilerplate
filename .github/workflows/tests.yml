@@ -1,0 +1,33 @@
+name: CRUD
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Run composer install
+        run: composer install -n --prefer-dist
+      - name: Run npm
+        run: npm && npm dev
+      - name: Run tests
+        run: ./vendor/bin/phpunit
+        env:
+          APP_ENV: testing
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: Logs
+          path: ./storage/logs
+      - name: Slack Notification
+          uses: 8398a7/action-slack@v2
+            with:
+              status: ${{ job.status }}
+              author_name: Integration Test # default: 8398a7@action-slack
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
+              SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+            if: always() # Pick up events even if the job fails or is canceled.
