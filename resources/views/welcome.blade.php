@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <link href="http://www.cceo.com.mx/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -68,12 +69,12 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}">{{ __('System') }}</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login') }}">{{ __('Login') }}</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a href="{{ route('register') }}">{{ __('Register') }}</a>
                         @endif
                     @endauth
                 </div>
@@ -81,18 +82,12 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    {{ config('app.name', 'Laravel') }}
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="http://cceo.com.mx/" target="_blank">CCEO</a>
+                    <a href="https://laracasts.com">{{ __('Project Info') }}</a>
                 </div>
             </div>
         </div>
