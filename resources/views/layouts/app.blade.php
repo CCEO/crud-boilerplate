@@ -114,7 +114,7 @@
                     <a href="http://cceo.com.mx/" target="_blank">CCEO - Software Development</a> {{ date('Y') }}
                 </span>
                 <span class="float-right">
-                    <a href="javascript:void(0)" target="_blank">{{ __('Info') }}</a>
+                    <a href="{{ route('info') }}" target="_blank">{{ __('Project Info') }}</a>
                 </span>
             </div>
         </footer>

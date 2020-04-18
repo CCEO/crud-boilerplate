@@ -87,7 +87,7 @@
 
                 <div class="links">
                     <a href="http://cceo.com.mx/" target="_blank">CCEO</a>
-                    <a href="https://laracasts.com">{{ __('Project Info') }}</a>
+                    <a href="{{ route('info') }}">{{ __('Project Info') }}</a>
                 </div>
             </div>
         </div>
