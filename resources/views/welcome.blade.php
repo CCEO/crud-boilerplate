@@ -69,7 +69,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">{{ __('System') }}</a>
+                        <a href="{{ route('users.index') }}">{{ __('System') }}</a>
                     @else
                         <a href="{{ route('login') }}">{{ __('Login') }}</a>
 
@@ -87,7 +87,7 @@
 
                 <div class="links">
                     <a href="http://cceo.com.mx/" target="_blank">CCEO</a>
-                    <a href="https://laracasts.com">{{ __('Project Info') }}</a>
+                    <a href="{{ route('info') }}">{{ __('Project Info') }}</a>
                 </div>
             </div>
         </div>
