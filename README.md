@@ -12,7 +12,7 @@ Furthermore it is possible to create, display, edit and delete elements through 
 ### Install  npm and composer dependencies
 ```shell script  
 composer require tightenco/ziggy
-npm install -s vue babel-helper-vue-jsx-merge-props vue-tables-2 debounce vue-js-modal @myshell/alvue bootstrap jquery popper.js font-awesome
+npm install -s vue babel-helper-vue-jsx-merge-props vue-tables-2 debounce vue-js-modal @myshell/alvue bootstrap jquery popper.js font-awesome vue-toast-notification
 ```  
 
 ### Include all dependencies in the project
@@ -77,8 +77,11 @@ import {Ziggy} from "./routes"
 import components from "./components";  
 import tablesConfig from "./tables_config";  
 import VModal from "vue-js-modal"import ALVue from "@myshell/alvue";  
-  
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+
 // Include plugins on Vue  
+Vue.use(VueToast);
 Vue.use(VModal, {dialog: true});  
 Vue.use(ALVue);  
 Vue.use(ServerTable, tablesConfig.options);  
@@ -227,6 +230,12 @@ export default {
 </template>
 
 <script>
+    const default_user = {
+        name: "",
+        email: "",
+        password: ""
+    };
+
     export default {
         name: "UserModal",
         data() {
@@ -235,11 +244,7 @@ export default {
                     action: null,
                     method: null
                 },
-                user: {
-                    name: "",
-                    email: "",
-                    password: ""
-                }
+                user: Object.assign({}, default_user)
             }
         },
         methods: {
@@ -247,16 +252,30 @@ export default {
                 Object.assign(this.user, this.$options.data().user);
                 this.$modal.hide("user-modal");
                 this.$refs.form.unsetButtonLoading();
-                this.$emit("created")
+                if (this.$refs.form.submitButton.style.display !== "none") {
+                    Vue.$toast.open({duration: 5000, message: "Información actualizada correctamente"});
+                    this.$emit("created")
+                }
             },
             beforeOpen(event) {
-                if (typeof event.params != "undefined") {
-                    this.form.action = this.route("users.update", event.params);
+                if (typeof event.params.id != "undefined") {
+                    this.form.action = this.route("users.update", event.params.id);
                     this.form.method = "put";
-                    axios.get(this.route("users.show", event.params)).then(response => {
+                    axios.get(this.route("users.show", event.params.id)).then(response => {
                         this.user = response.data;
+                        this.$nextTick(function () {
+                            if (typeof event.params.show != "undefined") {
+                                this.$refs.form.$refs.form.querySelectorAll("[name]").forEach(e => e.disabled = true);
+                                this.$refs.form.submitButton.style.display = "none"
+                            } else {
+                                this.$refs.form.$refs.form.querySelectorAll("[name]").forEach(e => e.disabled = false);
+                                this.$refs.form.submitButton.style.display = null
+                            }
+                        })
                     });
+
                 } else {
+                    this.user = Object.assign({}, default_user);
                     this.form.action = this.route("users.store");
                     this.form.method = "post";
                 }
@@ -264,7 +283,6 @@ export default {
         }
     }
 </script>
-
 ```
 
 ##### Add action column table to columns file
@@ -310,7 +328,22 @@ export default {
     }
 }
 ```
+### Add show modal
+##### Add button show to actions slot
+```html
+<button class="btn p-0 mx-1" @click="showUser(props.row.id)"><i class="fa fa-eye"></i></button>
+```
 
+##### Add show method
+```javascript
+export default {
+    methods: {
+        showUser(id) {
+            this.$modal.show("user-modal", {id: id, show: true});
+        },
+    }
+}
+```
 ### Add delete dialog
 ##### Include v-dialog component into table component
 ```html
