@@ -15,5 +15,5 @@ Route::view('/', 'welcome')->name('welcome');
 Route::view('/info', 'info')->name('info');
 
 Route::middleware(['auth', 'user.status'])->group(function () {
-    Route::view('system/users', 'system.users.index')->name('users.index');
+    Route::view('system/users', 'system.users.index')->name('users.view');
 });

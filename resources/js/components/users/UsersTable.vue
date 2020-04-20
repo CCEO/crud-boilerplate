@@ -23,16 +23,17 @@
                     </div>
                 </div>
                 <button class="btn btn-outline-dark" id="restore-filters">Restablecer filtros</button>
-                <button class="btn btn-outline-dark" @click="$modal.show('user-modal')">
+                <button class="btn btn-outline-dark" @click="$modal.show('user-modal', {reset: true})">
                     Nuevo usuario
                 </button>
             </div>
-            <div :slot="`h__${heading.column}`" v-for="heading in headings">
-                <span title="" class="VueTables__heading">{{heading.text}}</span>
-            </div>
+            <template :slot="`h__${heading.column}`" v-for="heading in headings">
+                {{heading.text}}
+            </template>
 
             <div slot="actions" slot-scope="props" class="text-center">
                 <button class="btn p-0 mx-1" @click="editUser(props.row.id)"><i class="fa fa-edit"></i></button>
+                <button class="btn p-0 mx-1" @click="showUser(props.row.id)"><i class="fa fa-eye"></i></button>
                 <button class="btn p-0 mx-1" @click="deleteUser(props.row.id)"><i class="fa fa-trash"></i></button>
             </div>
 
@@ -58,7 +59,13 @@
                 filterable: [],
                 headings: [],
                 options: {
-                    columns: UsersTableColumns
+                    columns: UsersTableColumns,
+                    sortIcon: {
+                        base: "fa",
+                        up: "fa-sort-asc",
+                        down: "fa-sort-desc",
+                        is: "fa-sort"
+                    }
                 }
             }
         },
@@ -69,7 +76,10 @@
                 this.$modal.hide("dialog");
             },
             editUser(id) {
-                this.$modal.show("user-modal", id);
+                this.$modal.show("user-modal", {id: id});
+            },
+            showUser(id) {
+                this.$modal.show("user-modal", {id: id, show: true});
             },
             deleteUser(id) {
                 this.$modal.show("dialog", {

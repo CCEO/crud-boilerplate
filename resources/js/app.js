@@ -8,7 +8,10 @@ import components from "./components";
 import tablesConfig from "./tables_config";
 import VModal from "vue-js-modal"
 import ALVue from "@myshell/alvue";
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
+Vue.use(VueToast);
 Vue.use(VModal, {dialog: true});
 Vue.use(ALVue);
 Vue.use(ServerTable, tablesConfig.options);
