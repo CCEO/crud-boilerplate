@@ -126,7 +126,8 @@ export default {
         head: "ID", // Text of head 
         default: true, // Show column by default
         filterable: true, // Show filter on column
-        filter: "" // Default value for filter
+        filter: "", // Default value for filter
+        sorteable: "" // Set column as sorteable
     },
     name: {
         head: "Nombre",
