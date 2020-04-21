@@ -37,6 +37,12 @@
 </template>
 
 <script>
+    const default_user = {
+        name: "",
+        email: "",
+        password: ""
+    };
+
     export default {
         name: "UserModal",
         data() {
@@ -45,11 +51,7 @@
                     action: null,
                     method: null
                 },
-                user: {
-                    name: "",
-                    email: "",
-                    password: ""
-                }
+                user: Object.assign({}, default_user)
             }
         },
         methods: {
@@ -57,16 +59,30 @@
                 Object.assign(this.user, this.$options.data().user);
                 this.$modal.hide("user-modal");
                 this.$refs.form.unsetButtonLoading();
-                this.$emit("created")
+                if (this.$refs.form.submitButton.style.display !== "none") {
+                    Vue.$toast.open({duration: 5000, message: "Información actualizada correctamente"});
+                    this.$emit("created")
+                }
             },
             beforeOpen(event) {
-                if (typeof event.params != "undefined") {
-                    this.form.action = this.route("users.update", event.params);
+                if (typeof event.params.id != "undefined") {
+                    this.form.action = this.route("users.update", event.params.id);
                     this.form.method = "put";
-                    axios.get(this.route("users.show", event.params)).then(response => {
+                    axios.get(this.route("users.show", event.params.id)).then(response => {
                         this.user = response.data;
+                        this.$nextTick(function () {
+                            if (typeof event.params.show != "undefined") {
+                                this.$refs.form.$refs.form.querySelectorAll("[name]").forEach(e => e.disabled = true);
+                                this.$refs.form.submitButton.style.display = "none"
+                            } else {
+                                this.$refs.form.$refs.form.querySelectorAll("[name]").forEach(e => e.disabled = false);
+                                this.$refs.form.submitButton.style.display = null
+                            }
+                        })
                     });
+
                 } else {
+                    this.user = Object.assign({}, default_user);
                     this.form.action = this.route("users.store");
                     this.form.method = "post";
                 }

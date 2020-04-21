@@ -9,12 +9,14 @@ export default {
         head: "Nombre",
         default: true,
         filterable: true,
-        filter: ""
+        filter: "",
+        sorteable: true
     },
     email: {
         head: "Correo",
         default: true,
         filterable: true,
+        sorteable: true,
         filter: ""
     },
     created_at: {
