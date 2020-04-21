@@ -50,9 +50,7 @@ export default {
                 const default_columns = Object.fromEntries(Object.keys(columns).map(column => [column, columns[column]['default']]))
                 const default_filters = Object.fromEntries(Object.keys(columns).map(column => [column, columns[column]['filter']]));
                 const sorteables = Object.keys(columns).filter(column => columns[column]['sorteable']);
-                //vm.$set(vm.options, 'loaded', true);
-
-                console.log(sorteables);
+                vm.$set(vm.options, 'sortable', sorteables);
                 vm.$set(vm.$parent.$parent, 'filterable', Object.keys(columns).filter(column => columns[column].filterable));
                 vm.$set(vm.$parent.$parent, 'headings', default_headings);
                 vm.$parent.$parent.$watch('tableInterface.visibleColumns', function (newColumns) {
