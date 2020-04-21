@@ -10,12 +10,18 @@ import VModal from "vue-js-modal"
 import ALVue from "@myshell/alvue";
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
+import flatPickr from "vue-flatpickr-component";
+import 'flatpickr/dist/flatpickr.css';
+import {Spanish} from 'flatpickr/dist/l10n/es.js';
 
 Vue.use(VueToast);
 Vue.use(VModal, {dialog: true});
 Vue.use(ALVue);
 Vue.use(ServerTable, tablesConfig.options);
 Vue.mixin(tablesConfig.init);
+Vue.use(flatPickr);
+
+Vue.prototype.spanishFlatpickr = Spanish;
 
 Vue.mixin({
     methods: {
