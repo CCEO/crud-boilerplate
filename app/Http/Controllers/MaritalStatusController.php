@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MaritalStatusRequest;
 use App\Models\MaritalStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MaritalStatusController extends Controller
 {
