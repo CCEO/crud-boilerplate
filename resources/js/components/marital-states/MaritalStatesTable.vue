@@ -77,12 +77,6 @@
                 headings: [],
                 options: {
                     columns: MaritalStatesTableColumns,
-                    sortIcon: {
-                        base: "fa",
-                        up: "fa-sort-asc",
-                        down: "fa-sort-desc",
-                        is: "fa-sort"
-                    }
                 },
                 dateConfig: {
                     mode: "range",
