@@ -45,7 +45,7 @@ class MaritalStatusController extends Controller
                         $filter = $filter == 'formatted_created_at' ? 'created_at' : 'update_at';
                         $dates = explode(" a ", $value);
                         if (count($dates) > 1)
-                            $maritalStatuss = $maritalStatuss->whereBetween(DB::raw('DATE(' . $filter . ')'), [$dates[0], $dates[1]]);
+                            $maritalStatuss = $maritalStatuss->whereBetween($filter, [$dates[0], $dates[1]]);
                         else
                             $maritalStatuss = $maritalStatuss->whereDate($filter, $dates[0]);
                         break;
