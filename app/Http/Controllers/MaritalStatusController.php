@@ -62,7 +62,7 @@ class MaritalStatusController extends Controller
 
         $data = $data->map(function ($_data) use ($columns, $appends) {
             $_data = $_data->append($appends);
-            $_data = $_data->only($columns);
+            if(count($columns)) $_data = $_data->only($columns);
             return $_data;
         });
 
@@ -77,8 +77,7 @@ class MaritalStatusController extends Controller
      */
     public function store(MaritalStatusRequest $request)
     {
-        $data = $request->all();
-        return MaritalStatus::create($data);
+        return MaritalStatus::create($request->all());
     }
 
     /**
@@ -103,8 +102,7 @@ class MaritalStatusController extends Controller
     public function update(MaritalStatusRequest $request, $id)
     {
         $maritalStatus = MaritalStatus::findOrFail($id);
-        $data = $request->all();
-        $maritalStatus->fill($data);
+        $maritalStatus->fill($request->all());
         $maritalStatus->save();
         return $maritalStatus;
     }
