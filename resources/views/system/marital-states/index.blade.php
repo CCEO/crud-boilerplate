@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('Marital Status') }}</div>
                     <div class="card-body">
-                        <users-table></users-table>
+                        <marital-states-table></marital-states-table>
                     </div>
                 </div>
             </div>
