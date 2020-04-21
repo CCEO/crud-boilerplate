@@ -1,7 +1,8 @@
 <template>
     <div class="table">
         <v-server-table :options="options" ref="table" :columns="columns" class=" table-borderless"
-                        :url="route('users.index',{ filters: JSON.stringify(tableInterface.debouncedFilters), columns:JSON.stringify([])})">
+                        :url="route('marital.states.index',{ filters: JSON.stringify(tableInterface.debouncedFilters),
+                        columns:JSON.stringify(Object.keys(tableInterface.debouncedFilters))})">
             <div :slot="`filter__${column}`" v-for="column in filterable" v-if="headings.length">
                 <input type="text" class="form-control" v-model="tableInterface.filters[column]"
                        :style="'max-width:'+(column=='id'?'50px':'auto')">
@@ -23,34 +24,51 @@
                     </div>
                 </div>
                 <button class="btn btn-outline-dark" id="restore-filters">Restablecer filtros</button>
-                <button class="btn btn-outline-dark" @click="$modal.show('user-modal')">
-                    Nuevo usuario
+                <button class="btn btn-outline-dark" @click="$modal.show('marital-status-modal', {reset: true})">
+                    Nuevo estado civil
                 </button>
             </div>
             <div :slot="`h__${heading.column}`" v-for="heading in headings">
-                <span title="" class="VueTables__heading">{{heading.text}}</span>
+                {{heading.text}}
+            </div>
+
+            <div slot="filter__formatted_created_at">
+                <fieldset>
+                    <div class="input-group">
+                        <flat-pickr v-model="tableInterface.filters['formatted_created_at']" class="form-control search-input"
+                                    :config="dateConfig">
+                        </flat-pickr>
+                        <div class="input-group-append">
+                            <button class="btn btn-light glow" type="button" data-clear><i class="fa fa-times"><span
+                                aria-hidden="true" class="sr-only">Limpiar</span></i>
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
             </div>
 
             <div slot="actions" slot-scope="props" class="text-center">
-                <button class="btn p-0 mx-1" @click="editUser(props.row.id)"><i class="fa fa-edit"></i></button>
-                <button class="btn p-0 mx-1" @click="deleteUser(props.row.id)"><i class="fa fa-trash"></i></button>
+                <button class="btn p-0 mx-1" @click="showMaritalStatus(props.row.id)"><i class="fa fa-eye"></i></button>
+                <button class="btn p-0 mx-1" @click="editMaritalStatus(props.row.id)"><i class="fa fa-edit"></i></button>
+                <button class="btn p-0 mx-1" @click="deleteMaritalStatus(props.row.id)"><i class="fa fa-trash"></i></button>
             </div>
 
         </v-server-table>
-        <user-modal @created="reloadTable"></user-modal>
+        <marital-status-modal @created="reloadTable"></marital-status-modal>
         <v-dialog/>
         <br>
     </div>
 </template>
 
 <script>
-    import UsersTableColumns from "./UsersTableColumns"
-    import UserModal from "./UserModal"
+    import MaritalStatesTableColumns from "./MaritalStatesTableColumns";
+    import MaritalStatusModal from "./MaritalStatusModal";
+    import {Spanish} from 'flatpickr/dist/l10n/es.js';
 
     export default {
-        name: "UsersTable",
+        name: "MaritalStateTable",
         components: {
-            UserModal
+            MaritalStatusModal
         },
         data() {
             return {
@@ -58,8 +76,22 @@
                 filterable: [],
                 headings: [],
                 options: {
-                    columns: UsersTableColumns
-                }
+                    columns: MaritalStatesTableColumns,
+                    sortIcon: {
+                        base: "fa",
+                        up: "fa-sort-asc",
+                        down: "fa-sort-desc",
+                        is: "fa-sort"
+                    }
+                },
+                dateConfig: {
+                    mode: "range",
+                    dateFormat: 'Y-m-d',
+                    altFormat: 'M j, Y',
+                    locale: Spanish,
+                    wrap: true,
+                    altInput: true,
+                },
             }
         },
         methods: {
@@ -68,13 +100,16 @@
                 this.$set(this.tableInterface, "debouncedFilters", debouncedFilters);
                 this.$modal.hide("dialog");
             },
-            editUser(id) {
-                this.$modal.show("user-modal", id);
+            editMaritalStatus(id) {
+                this.$modal.show("marital-status-modal", id);
             },
-            deleteUser(id) {
+            showMaritalStatus(id) {
+                this.$modal.show("marital-status-modal", {id: id, show: true});
+            },
+            deleteMaritalStatus(id) {
                 this.$modal.show("dialog", {
-                    title: "Eliminar usuario",
-                    text: "¿Desea eliminar el usuario?",
+                    title: "Eliminar registro",
+                    text: "¿Desea eliminar el registro?",
                     buttons: [
                         {
                             title: "Cancelar"
@@ -82,7 +117,8 @@
                         {
                             title: "Eliminar",
                             handler: () => {
-                                axios.delete(this.route("users.destroy", id)).then(this.reloadTable);
+                                axios.delete(this.route("marital.states.destroy", id)).then(this.reloadTable);
+                                Vue.$toast.open({duration: 5000, message: "Elemento eliminado exitosamente."});
                             }
                         }
                     ]
