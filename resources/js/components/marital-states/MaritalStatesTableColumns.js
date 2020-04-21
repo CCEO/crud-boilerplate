@@ -3,17 +3,20 @@ export default {
         head: "Nombre",
         default: true,
         filterable: true,
-        filter: ""
+        filter: "",
+        sorteable: true
     },
     formatted_created_at: {
         head: "Fecha",
         default: true,
-        filterable: true,
-        filter: ""
+        filterable: false,
+        filter: "",
+        sorteable: true
     },
     actions: {
         head: "Acciones",
         default: true,
         filterable: false,
+        sorteable: false
     },
 }
