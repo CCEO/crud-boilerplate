@@ -58,10 +58,10 @@
                                 <a class="nav-link" href="{{ route('users.view') }}">{{ __('Users') }} <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)">{{ __('Countries') }}</a>
+                                <a class="nav-link" href="{{ route('countries.view') }}">{{ __('Countries') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)">{{ __('States') }}</a>
+                                <a class="nav-link" href="{{ route('states.view') }}">{{ __('States') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('marital.states.view') }}">{{ __('Marital Status') }}</a>
