@@ -17,6 +17,12 @@ export default {
                 });
             });
         },
+        sortIcon: {
+            base: "fa",
+            up: "fa-sort-asc",
+            down: "fa-sort-desc",
+            is: "fa-sort"
+        },
         texts: {
             count: "Mostrando {from} a {to} de {count} registros|{count} registros|Un registro",
             first: 'First',

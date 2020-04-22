@@ -55,7 +55,7 @@
                     <ul class="navbar-nav mr-auto">
                         @auth
                             <li class="nav-item active">
-                                <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }} <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="{{ route('users.view') }}">{{ __('Users') }} <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="javascript:void(0)">{{ __('Countries') }}</a>
@@ -64,7 +64,7 @@
                                 <a class="nav-link" href="javascript:void(0)">{{ __('States') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)">{{ __('Marital Status') }}</a>
+                                <a class="nav-link" href="{{ route('marital.states.view') }}">{{ __('Marital Status') }}</a>
                             </li>
                         @endauth
                     </ul>
