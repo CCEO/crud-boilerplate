@@ -9,9 +9,13 @@ import tablesConfig from "./tables_config";
 import VModal from "vue-js-modal"
 import ALVue from "@myshell/alvue";
 import VueToast from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-sugar.css';
 import flatPickr from "vue-flatpickr-component";
+import vSelect from 'vue-select';
+
 import 'flatpickr/dist/flatpickr.css';
+import 'vue-select/dist/vue-select.css';
+import 'vue-toast-notification/dist/theme-sugar.css';
+
 import {Spanish} from 'flatpickr/dist/l10n/es.js';
 
 Vue.use(VueToast);
@@ -20,6 +24,7 @@ Vue.use(ALVue);
 Vue.use(ServerTable, tablesConfig.options);
 Vue.mixin(tablesConfig.init);
 Vue.use(flatPickr);
+Vue.component('v-select', vSelect);
 
 Vue.prototype.spanishFlatpickr = Spanish;
 
