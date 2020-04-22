@@ -20,7 +20,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" v-if="modalShow">
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="formatted_created_at">Fecha de Creación:</label>
@@ -61,7 +61,8 @@
                     action: null,
                     method: null
                 },
-                maritalStatus: Object.assign({}, default_fields)
+                maritalStatus: Object.assign({}, default_fields),
+                modalShow: false
             }
         },
         methods: {
@@ -76,6 +77,7 @@
             },
             beforeOpen(event) {
                 if (typeof event.params.id != "undefined") {
+                    this.modalShow = true;
                     this.form.action = this.route("marital.states.update", event.params);
                     this.form.method = "put";
                     axios.get(this.route("marital.states.show", event.params)).then(response => {
@@ -91,6 +93,7 @@
                         })
                     });
                 } else {
+                    this.modalShow = false;
                     this.maritalStatus = Object.assign({}, default_fields);
                     this.form.action = this.route("marital.states.store");
                     this.form.method = "post";
