@@ -18,4 +18,6 @@ Auth::routes();
 Route::middleware(['auth', 'user.status', 'only.ajax'])->group(function () {
     Route::apiResource('users', 'UserController');
     Route::apiResource('marital-states', 'MaritalStatusController', ['names' => 'marital.states']);
+    Route::apiResource('countries', 'CountryController');
+    Route::apiResource('states', 'StateController');
 });
