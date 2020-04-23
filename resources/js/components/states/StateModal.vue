@@ -119,11 +119,10 @@
         created(){
             axios.get(this.route('countries.index', {columns:JSON.stringify(["name"])})).then(response => {
                 this.countryOptions = response.data.data;
-                console.log(response.data.data);
             })
         },
         watch:{
-            continents(){
+            countries(){
                 this.state.country_id = this.countries.code
             },
         }
