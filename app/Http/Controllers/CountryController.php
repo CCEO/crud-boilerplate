@@ -26,16 +26,6 @@ class CountryController extends Controller
 
         $countries = Country::where("id", ">", 0);
 
-        switch ($orderBy) {
-            case 'formatted_created_at':
-            case 'formatted_updated_at':
-                $countries->orderBy($orderBy == 'formatted_created_at' ? 'created_at' : 'update_at', $ascending ? "ASC" : "DESC");
-                break;
-            default:
-                $countries->orderBy($orderBy, $ascending ? "ASC" : "DESC");
-                break;
-        }
-
         foreach ($filters as $filter => $value) {
             if ($value && $filter != "reload")
                 switch ($filter) {
@@ -50,7 +40,7 @@ class CountryController extends Controller
                         break;
                     case "continent_name":
                         $countries->whereHas('continent', function ($record) use ($value) {
-                            $record->where('name', 'like', "%".$value."%");
+                            $record->where('name', 'like', "%" . $value . "%");
                         });
                         break;
                     default:
@@ -61,6 +51,13 @@ class CountryController extends Controller
 
         $data = $countries->get();
         $count = $data->count();
+
+        if ($ascending) {
+            $data = $data->sortBy($orderBy)->values();
+        } else {
+            $data = $data->sortByDesc($orderBy)->values();
+        }
+
         if ($limit && $page)
             $data = $data->slice(($page - 1) * $limit)->take($limit)->values();
 
