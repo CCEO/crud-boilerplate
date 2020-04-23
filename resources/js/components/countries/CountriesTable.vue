@@ -95,7 +95,7 @@
                 this.$modal.hide("dialog");
             },
             editCountry(id) {
-                this.$modal.show("country-modal", id);
+                this.$modal.show("country-modal", {id: id});
             },
             showCountry(id) {
                 this.$modal.show("country-modal", {id: id, show: true});
