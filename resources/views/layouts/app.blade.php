@@ -54,17 +54,17 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{{ route('users.view') }}">{{ __('Users') }} <span class="sr-only">(current)</span></a>
+                            <li class="nav-item @if(Request::is('system/users')) active @endif">
+                                <a class="nav-link" href="{{ route('users.view') }}">{{ __('Users') }} @if(Request::is('system/users'))<span class="sr-only">(current)</span>@endif</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)">{{ __('Countries') }}</a>
+                            <li class="nav-item @if(Request::is('system/countries')) active @endif">
+                                <a class="nav-link" href="{{ route('countries.view') }}">{{ __('Countries') }} @if(Request::is('system/countries'))<span class="sr-only">(current)</span>@endif</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)">{{ __('States') }}</a>
+                            <li class="nav-item @if(Request::is('system/states')) active @endif">
+                                <a class="nav-link" href="{{ route('states.view') }}">{{ __('States') }} @if(Request::is('system/states'))<span class="sr-only">(current)</span>@endif</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('marital.states.view') }}">{{ __('Marital Status') }}</a>
+                            <li class="nav-item @if(Request::is('system/marital-states')) active @endif">
+                                <a class="nav-link" href="{{ route('marital.states.view') }}">{{ __('Marital Status') }} @if(Request::is('system/marital-states'))<span class="sr-only">(current)</span>@endif</a>
                             </li>
                         @endauth
                     </ul>
