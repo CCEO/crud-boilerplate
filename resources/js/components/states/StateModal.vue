@@ -25,6 +25,7 @@
                         <v-select name="country_id" id="country_id"
                                   v-model="countries"
                                   :options="countryOptions.map(b=>({label: b.name, code: b.id}))"
+                                  :disabled="modalShow"
                         >
                             <div slot="no-options">No se encontraron opciones</div>
                         </v-select>
@@ -59,6 +60,7 @@
     const default_fields = {
         name: "",
         country_id: "",
+        country_name: "",
         formatted_created_at: "",
         formatted_updated_at: "",
     };
@@ -88,16 +90,17 @@
                 }
             },
             beforeOpen(event) {
-                axios.get(this.route('countries.index', {columns:JSON.stringify(["name"])})).then(response => {
-                    this.countryOptions = response.data.data;
-                });
+                this.modalShow = false;
 
                 if (typeof event.params.id != "undefined") {
-                    this.modalShow = true;
+                    if (typeof event.params.show != "undefined") {
+                        this.modalShow = true;
+                    }
                     this.form.action = this.route("states.update", event.params);
                     this.form.method = "put";
                     axios.get(this.route("states.show", event.params)).then(response => {
                         this.state = response.data;
+                        this.countries = this.state.country_name;
                         this.$nextTick(function () {
                             if (typeof event.params.show != "undefined") {
                                 this.$refs.form.$refs.form.querySelectorAll("[name]").forEach(e => e.disabled = true);
@@ -109,7 +112,7 @@
                         })
                     });
                 } else {
-                    this.modalShow = false;
+                    this.countries = "";
                     this.state = Object.assign({}, default_fields);
                     this.form.action = this.route("states.store");
                     this.form.method = "post";
