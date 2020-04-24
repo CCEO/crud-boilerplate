@@ -61,7 +61,7 @@
 </template>
 
 <script>
-    import countriesTableColumns from "./countriesTableColumns";
+    import CountriesTableColumns from "./CountriesTableColumns";
     import CountryModal from "./CountryModal";
     import {Spanish} from 'flatpickr/dist/l10n/es.js';
 
@@ -76,7 +76,7 @@
                 filterable: [],
                 headings: [],
                 options: {
-                    columns: countriesTableColumns,
+                    columns: CountriesTableColumns,
                 },
                 dateConfig: {
                     mode: "range",
