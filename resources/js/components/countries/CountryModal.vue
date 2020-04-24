@@ -91,9 +91,6 @@
             },
             beforeOpen(event) {
                 this.modalShow = false;
-                axios.get(this.route('countries.index', {columns:JSON.stringify(["name"])})).then(response => {
-                    this.countryOptions = response.data.data;
-                });
 
                 if (typeof event.params.id != "undefined") {
                     if (typeof event.params.show != "undefined") {
