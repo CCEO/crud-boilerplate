@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="form-group" >
-                        <label>Pais</label>
+                        <label>Continente</label>
                         <v-select name="continent_id" id="continent_id"
                                   v-model="continents"
                                   :options="continentOptions.map(b=>({label: b.name, code: b.id}))"
