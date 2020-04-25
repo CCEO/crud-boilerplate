@@ -95,7 +95,7 @@
                 this.$modal.hide("dialog");
             },
             editMaritalStatus(id) {
-                this.$modal.show("marital-status-modal", id);
+                this.$modal.show("marital-status-modal", {id: id});
             },
             showMaritalStatus(id) {
                 this.$modal.show("marital-status-modal", {id: id, show: true});
