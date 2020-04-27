@@ -9,7 +9,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" >
                 <alv-form :action="form.action" id="country-create" :method="form.method" :spinner="true"
                           :data-object="country" @after-done="afterDone" ref="form">
                     <div class="row">
@@ -132,6 +132,10 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+    .v--modal-overlay .v--modal-box {
+        position: relative;
+        overflow: visible !important;
+        box-sizing: border-box;
+    }
 </style>

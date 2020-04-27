@@ -132,6 +132,10 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+    .v--modal-overlay .v--modal-box {
+        position: relative;
+        overflow: visible !important;
+        box-sizing: border-box;
+    }
 </style>

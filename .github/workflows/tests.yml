@@ -11,7 +11,7 @@ jobs:
       - name: Run composer install
         run: composer install -n --prefer-dist
       - name: Create .env file
-        run: cp .env.example .env
+        run: cp .env .env
       - name: Create project key
         run: php artisan key:generate
       - name: Run npm install
