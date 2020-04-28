@@ -2,7 +2,13 @@
     <div class="table">
         <v-server-table :options="options" ref="table" :columns="columns" class=" table-borderless"
                         :url="route('countries.index',{ filters: JSON.stringify(tableInterface.debouncedFilters),
-                        columns:JSON.stringify(Object.keys(tableInterface.debouncedFilters))})">
+                        columns:JSON.stringify(Object.keys(tableInterface.debouncedFilters))})" name="countries">
+
+            <template v-show="loading" slot="afterBody">
+                <div class="overlay-loader"></div>
+                <clip-loader size="50px" class="clip-loader"></clip-loader>
+            </template>
+
             <div :slot="`filter__${column}`" v-for="column in filterable" v-if="headings.length">
                 <input type="text" class="form-control" v-model="tableInterface.filters[column]"
                        :style="'max-width:'+(column=='id'?'50px':'auto')">
@@ -64,11 +70,14 @@
     import CountriesTableColumns from "./CountriesTableColumns";
     import CountryModal from "./CountryModal";
     import {Spanish} from 'flatpickr/dist/l10n/es.js';
+    import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
+    import {Event} from "vue-tables-2";
 
     export default {
         name: "countriesTable",
         components: {
-            CountryModal
+            CountryModal,
+            "clip-loader": ClipLoader
         },
         data() {
             return {
@@ -86,7 +95,19 @@
                     wrap: true,
                     altInput: true,
                 },
+                loading: false,
             }
+        },
+        mounted() {
+            Event.$on('vue-tables.countries.loading', () => {
+                this.loading = true;
+                //console.log("LOADING... " + this.loading);
+            });
+
+            Event.$on('vue-tables.countries.loaded',() => {
+                this.loading = false;
+                //console.log("LODADED... " + this.loading);
+            });
         },
         methods: {
             reloadTable() {
@@ -122,3 +143,27 @@
     }
 </script>
 
+<style>
+    table {
+        width: 100%;
+        position: relative;
+    }
+
+    .overlay-loader {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        opacity: 0.8;
+        filter: blur(5px);
+    }
+
+    .clip-loader {
+        position: absolute;
+        left: 50%;
+        right: 50%;
+        bottom: 60%;
+        top: 40%;
+    }
+</style>

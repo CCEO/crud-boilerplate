@@ -1,7 +1,7 @@
 require("./bootstrap");
 window.Vue = require("vue");
 
-import {ServerTable} from "vue-tables-2";
+import {ServerTable } from "vue-tables-2";
 import route from "ziggy";
 import {Ziggy} from "./routes"
 import components from "./components";
