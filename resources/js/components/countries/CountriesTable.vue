@@ -72,7 +72,6 @@
     import CountryModal from "./CountryModal";
     import {Spanish} from "flatpickr/dist/l10n/es.js";
     import ClipLoader from "vue-spinner/src/ClipLoader.vue"
-    import {Event} from "vue-tables-2";
 
     export default {
         name: "countriesTable",
@@ -98,17 +97,6 @@
                 },
                 loading: false,
             }
-        },
-        mounted() {
-            Event.$on("vue-tables.countries.loading", () => {
-                this.$refs.loading.style.display = "block"
-
-            });
-
-            Event.$on("vue-tables.countries.loaded", () => {
-                this.$refs.loading.style.display = "none"
-
-            });
         },
         methods: {
             reloadTable() {
