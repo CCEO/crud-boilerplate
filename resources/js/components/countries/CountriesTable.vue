@@ -4,10 +4,10 @@
                         :url="route('countries.index',{ filters: JSON.stringify(tableInterface.debouncedFilters),
                         columns:JSON.stringify(Object.keys(tableInterface.debouncedFilters))})" name="countries">
 
-            <template v-show="loading" slot="afterBody">
+            <div ref="loading" slot="afterBody">
                 <div class="overlay-loader"></div>
                 <clip-loader size="50px" class="clip-loader"></clip-loader>
-            </template>
+            </div>
 
             <div :slot="`filter__${column}`" v-for="column in filterable" v-if="headings.length">
                 <input type="text" class="form-control" v-model="tableInterface.filters[column]"
@@ -41,7 +41,8 @@
             <div slot="filter__formatted_created_at">
                 <fieldset>
                     <div class="input-group">
-                        <flat-pickr v-model="tableInterface.filters['formatted_created_at']" class="form-control search-input"
+                        <flat-pickr v-model="tableInterface.filters['formatted_created_at']"
+                                    class="form-control search-input"
                                     :config="dateConfig">
                         </flat-pickr>
                         <div class="input-group-append">
@@ -69,8 +70,8 @@
 <script>
     import CountriesTableColumns from "./CountriesTableColumns";
     import CountryModal from "./CountryModal";
-    import {Spanish} from 'flatpickr/dist/l10n/es.js';
-    import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
+    import {Spanish} from "flatpickr/dist/l10n/es.js";
+    import ClipLoader from "vue-spinner/src/ClipLoader.vue"
     import {Event} from "vue-tables-2";
 
     export default {
@@ -89,8 +90,8 @@
                 },
                 dateConfig: {
                     mode: "range",
-                    dateFormat: 'Y-m-d',
-                    altFormat: 'M j, Y',
+                    dateFormat: "Y-m-d",
+                    altFormat: "M j, Y",
                     locale: Spanish,
                     wrap: true,
                     altInput: true,
@@ -99,14 +100,14 @@
             }
         },
         mounted() {
-            Event.$on('vue-tables.countries.loading', () => {
-                this.loading = true;
-                //console.log("LOADING... " + this.loading);
+            Event.$on("vue-tables.countries.loading", () => {
+                this.$refs.loading.style.display = "block"
+
             });
 
-            Event.$on('vue-tables.countries.loaded',() => {
-                this.loading = false;
-                //console.log("LODADED... " + this.loading);
+            Event.$on("vue-tables.countries.loaded", () => {
+                this.$refs.loading.style.display = "none"
+
             });
         },
         methods: {
