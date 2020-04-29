@@ -1,7 +1,14 @@
 <template>
     <div class="table">
         <v-server-table :options="options" ref="table" :columns="columns" class=" table-borderless"
-                        :url="route('users.index',{ filters: JSON.stringify(tableInterface.debouncedFilters), columns:JSON.stringify([])})">
+                        :url="route('users.index',{ filters: JSON.stringify(tableInterface.debouncedFilters), columns:JSON.stringify([])})"
+                        name="users">
+
+            <div ref="loading" slot="afterBody">
+                <div class="overlay-loader"></div>
+                <clip-loader size="50px" class="clip-loader"></clip-loader>
+            </div>
+
             <div :slot="`filter__${column}`" v-for="column in filterable" v-if="headings.length">
                 <input type="text" class="form-control" v-model="tableInterface.filters[column]"
                        :style="'max-width:'+(column=='id'?'50px':'auto')">

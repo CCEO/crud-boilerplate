@@ -11,6 +11,7 @@ import ALVue from "@myshell/alvue";
 import VueToast from 'vue-toast-notification';
 import flatPickr from "vue-flatpickr-component";
 import vSelect from 'vue-select';
+import ClipLoader from "vue-spinner/src/ClipLoader.vue"
 
 import 'flatpickr/dist/flatpickr.css';
 import 'vue-select/dist/vue-select.css';
@@ -25,6 +26,7 @@ Vue.use(ServerTable, tablesConfig.options);
 Vue.mixin(tablesConfig.init);
 Vue.use(flatPickr);
 Vue.component('v-select', vSelect);
+Vue.component('clip-loader', ClipLoader);
 
 Vue.prototype.spanishFlatpickr = Spanish;
 

@@ -71,13 +71,11 @@
     import CountriesTableColumns from "./CountriesTableColumns";
     import CountryModal from "./CountryModal";
     import {Spanish} from "flatpickr/dist/l10n/es.js";
-    import ClipLoader from "vue-spinner/src/ClipLoader.vue"
 
     export default {
         name: "countriesTable",
         components: {
             CountryModal,
-            "clip-loader": ClipLoader
         },
         data() {
             return {
@@ -95,7 +93,6 @@
                     wrap: true,
                     altInput: true,
                 },
-                loading: false,
             }
         },
         methods: {
@@ -131,28 +128,3 @@
         }
     }
 </script>
-
-<style>
-    table {
-        width: 100%;
-        position: relative;
-    }
-
-    .overlay-loader {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: white;
-        opacity: 0.8;
-        filter: blur(5px);
-    }
-
-    .clip-loader {
-        position: absolute;
-        left: 50%;
-        right: 50%;
-        bottom: 60%;
-        top: 40%;
-    }
-</style>

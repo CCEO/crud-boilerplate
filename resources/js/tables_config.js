@@ -50,7 +50,7 @@ export default {
             const vm = this;
             if (vm.$parent && vm.$parent.$options.name === 'VtServerTable') {
 
-                Event.$on("vue-tables.countries.loaded", () => {
+                Event.$on(`vue-tables.${vm.$parent.name}.loaded`, () => {
                     vm.$parent.$parent.$refs.loading.style.display = "none"
                 });
                 const columns = vm.options.columns;
