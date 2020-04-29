@@ -46,3 +46,27 @@
 .VuePagination .VuePagination__count {
     padding: 0;
 }
+
+//Loading indicator CSS
+table {
+    width: 100%;
+    position: relative;
+}
+
+.overlay-loader {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 0.8;
+    filter: blur(5px);
+}
+
+.clip-loader {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    bottom: 60%;
+    top: 40%;
+}

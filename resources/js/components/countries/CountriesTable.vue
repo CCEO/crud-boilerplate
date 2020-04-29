@@ -2,7 +2,13 @@
     <div class="table">
         <v-server-table :options="options" ref="table" :columns="columns" class=" table-borderless"
                         :url="route('countries.index',{ filters: JSON.stringify(tableInterface.debouncedFilters),
-                        columns:JSON.stringify(Object.keys(tableInterface.debouncedFilters))})">
+                        columns:JSON.stringify(Object.keys(tableInterface.debouncedFilters))})" name="countries">
+
+            <div ref="loading" slot="afterBody">
+                <div class="overlay-loader"></div>
+                <clip-loader size="50px" class="clip-loader"></clip-loader>
+            </div>
+
             <div :slot="`filter__${column}`" v-for="column in filterable" v-if="headings.length">
                 <input type="text" class="form-control" v-model="tableInterface.filters[column]"
                        :style="'max-width:'+(column=='id'?'50px':'auto')">
@@ -35,7 +41,8 @@
             <div slot="filter__formatted_created_at">
                 <fieldset>
                     <div class="input-group">
-                        <flat-pickr v-model="tableInterface.filters['formatted_created_at']" class="form-control search-input"
+                        <flat-pickr v-model="tableInterface.filters['formatted_created_at']"
+                                    class="form-control search-input"
                                     :config="dateConfig">
                         </flat-pickr>
                         <div class="input-group-append">
@@ -63,12 +70,12 @@
 <script>
     import CountriesTableColumns from "./CountriesTableColumns";
     import CountryModal from "./CountryModal";
-    import {Spanish} from 'flatpickr/dist/l10n/es.js';
+    import {Spanish} from "flatpickr/dist/l10n/es.js";
 
     export default {
         name: "countriesTable",
         components: {
-            CountryModal
+            CountryModal,
         },
         data() {
             return {
@@ -80,8 +87,8 @@
                 },
                 dateConfig: {
                     mode: "range",
-                    dateFormat: 'Y-m-d',
-                    altFormat: 'M j, Y',
+                    dateFormat: "Y-m-d",
+                    altFormat: "M j, Y",
                     locale: Spanish,
                     wrap: true,
                     altInput: true,
@@ -121,4 +128,3 @@
         }
     }
 </script>
-

@@ -1,3 +1,5 @@
+import {Event} from "vue-tables-2";
+
 export default {
     options: {
         requestFunction(data) {
@@ -5,6 +7,7 @@ export default {
             const equalsRoute = JSON.stringify(this.url) != JSON.stringify(this.currentURL);
             if (this.options.loaded && (typeof this.currentURL == 'undefined' || equalsRoute)) {
                 this.currentURL = this.url.url();
+                this.$parent.$parent.$refs.loading.style.display = "block";
                 return axios.get(this.url).catch(function (e) {
                     this.dispatch('error', e);
                 }.bind(this));
@@ -47,6 +50,9 @@ export default {
             const vm = this;
             if (vm.$parent && vm.$parent.$options.name === 'VtServerTable') {
 
+                Event.$on(`vue-tables.${vm.$parent.name}.loaded`, () => {
+                    vm.$parent.$parent.$refs.loading.style.display = "none"
+                });
                 const columns = vm.options.columns;
                 const parentName = vm.$parent.$parent.$options.name;
                 const default_headings = Object.keys(columns).map(column => ({
