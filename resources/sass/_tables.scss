@@ -70,3 +70,15 @@ table {
     bottom: 60%;
     top: 40%;
 }
+
+.VueTables__heading div {
+    display: inline
+}
+
+.VueTables__sort-icon {
+    float: right;
+}
+
+.VueTables__limit-field label{
+    display: inline !important;
+}
