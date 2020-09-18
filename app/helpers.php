@@ -2,7 +2,7 @@
 use Carbon\Carbon;
 
 /**
- * Get formatted date in long mode for updated at
+ * Get formatted date in long mode for any date
  *
  * @return: String
  */
