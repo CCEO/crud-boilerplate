@@ -62,8 +62,7 @@ class Country extends Model
      */
     public function getFormattedCreatedAtAttribute()
     {
-        $dt = Carbon::parse($this->created_at);
-        return ucfirst($dt->locale('es')->dayName) . " " . $dt->day . " del " . ucfirst($dt->locale('es')->monthName) . " de " . $dt->year . " a las " . $dt->hour . ":" . $dt->minute . ":" . $dt->second;
+        humanizeDate($this->created_at);
     }
 
     /**
@@ -71,8 +70,7 @@ class Country extends Model
      */
     public function getFormattedUpdatedAtAttribute()
     {
-        $dt = Carbon::parse($this->updated_at);
-        return ucfirst($dt->locale('es')->dayName) . " " . $dt->day . " del " . ucfirst($dt->locale('es')->monthName) . " de " . $dt->year . " a las " . $dt->hour . ":" . $dt->minute . ":" . $dt->second;
+        humanizeDate($this->updated_at);
     }
 
     /**
