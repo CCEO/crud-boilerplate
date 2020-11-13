@@ -54,7 +54,7 @@ class State extends Model
      */
     public function getFormattedCreatedAtAttribute()
     {
-        humanizeDate($this->created_at);
+        return humanizeDate($this->created_at);
     }
 
     /**
@@ -62,7 +62,7 @@ class State extends Model
      */
     public function getFormattedUpdatedAtAttribute()
     {
-        humanizeDate($this->updated_at);
+        return humanizeDate($this->updated_at);
     }
     /**
      * Get the country name for this record
