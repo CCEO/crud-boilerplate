@@ -55,7 +55,7 @@ class Continent extends Model
      */
     public function getFormattedCreatedAtAttribute()
     {
-        humanizeDate($this->created_at);
+        return humanizeDate($this->created_at);
     }
 
     /**
@@ -63,6 +63,6 @@ class Continent extends Model
      */
     public function getFormattedUpdatedAtAttribute()
     {
-        humanizeDate($this->updated_at);
+        return humanizeDate($this->updated_at);
     }
 }
